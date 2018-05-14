@@ -1,3 +1,27 @@
+# rnGraphicsAnimations
+
+##findings so far:
+
+1. animated vector drawable
+	- native android component that lets you animate svg with gredient but not shadows
+2. android lets you blur images with renderscript
+3. you can look into Dimezis/BlurView, a library that creates blur views for android
+4. you can try android native canvas
+5. there are some react-native canvas libraries that you should try
+
+##React-native canvas libraries/APIs
+	look at this: https://engineering.salesforce.com/experiments-with-high-performance-animation-in-react-native-80a0cb7052b0
+
+1. GCanvas (very promising supported by alibaba)
+2. iddan/react-native-canvas (uses Standard CanvasRenderingContext2D)
+3. React Native ART ( built-in library which can be used to draw pretty much any shape) (probably not good enough)
+4. React Native SVG (was branched from React Native ART)
+5. React Native NanoVG (OpenGL implementation for drawing shapes with a nice interface similar to React Native ART)
+
+try to check this one out as well: https://medium.com/@danieljamesharvey/converting-my-canvas-game-to-react-native-part-1-f170d5679ba9
+
+-----------------
+
 This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app).
 
 Below you'll find information about performing common tasks. The most recent version of this guide is available [here](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md).
