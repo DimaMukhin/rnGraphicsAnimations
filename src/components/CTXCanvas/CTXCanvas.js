@@ -1,18 +1,26 @@
 import React, { Component } from 'react';
+import { TouchableWithoutFeedback, View, Button } from 'react-native';
 import Canvas from 'react-native-canvas';
 // import { EDESTADDRREQ } from 'constants';
 
 // define the path to plot
 var vertices=[];
-vertices.push({x:0,y:0});
-vertices.push({x:300,y:100});
-vertices.push({x:80,y:200});
-vertices.push({x:10,y:100});
-vertices.push({x:0,y:0});
+vertices.push({x:6,y:52});
+vertices.push({x:27,y:52});
+vertices.push({x:32,y:51});
+vertices.push({x:36,y:55});
+vertices.push({x:46,y:26});
+vertices.push({x:56,y:69});
+vertices.push({x:61,y:50});
+vertices.push({x:66,y:56});
+vertices.push({x:70,y:50});
+vertices.push({x:74,y:52});
+vertices.push({x:94,y:52});
 
 export default class App extends Component {
 
     x = 0;
+    ctx = null;
 
     componentDidMount() {
         // this.draw();
@@ -38,15 +46,27 @@ export default class App extends Component {
     handleCanvas = async (canvas) => {
         console.log('Handle Canvas!');
 
-        const ctx = await canvas.getContext('2d');
-        ctx.lineWidth = 10;
+        ctx = await canvas.getContext('2d');
+
+        ctx.lineWidth = 2;
         ctx.lineCap = 'round';
-        let grd = await ctx.createLinearGradient(0,0,200,0);
+        ctx.lineJoin = 'round';
+
+        ctx.strokeStyle = 'gray';
+        ctx.beginPath();
+        ctx.moveTo(vertices[0].x, vertices[0].y);
+        for (let vertex of vertices) {
+            ctx.lineTo(vertex.x,vertex.y);
+        }
+        ctx.stroke();
+        ctx.closePath();
+
+        let grd = await ctx.createLinearGradient(0,0,100,0);
         grd.addColorStop(0,"red");
-        grd.addColorStop(1,"white");
+        grd.addColorStop(1,"orange");
         ctx.strokeStyle = grd;
         ctx.shadowColor = 'red';
-        ctx.shadowBlur = 20;
+        ctx.shadowBlur = 5;
         this.animate(ctx);
     }
 
@@ -72,13 +92,38 @@ export default class App extends Component {
             var pt1=vertices[i];
             var dx=pt1.x-pt0.x;
             var dy=pt1.y-pt0.y;
-            for(var j=0;j<100;j++){
-                var x=pt0.x+dx*j/100;
-                var y=pt0.y+dy*j/100;
+            var dist = Math.floor(Math.sqrt(dx*dx + dy*dy) / 3);
+            for(var j=0;j<=dist;j++){
+                var x=pt0.x+dx*j/dist;
+                var y=pt0.y+dy*j/dist;
                 waypoints.push({x:x,y:y});
             }
         }
         return(waypoints);
+    }
+
+    onCanvasPressed = async () => {
+        console.log('pressed!');
+        ctx.clearRect(0, 0, 300, 150);
+
+        ctx.strokeStyle = 'gray';
+        ctx.shadowBlur = 0;
+        ctx.beginPath();
+        ctx.moveTo(vertices[0].x, vertices[0].y);
+        for (let vertex of vertices) {
+            ctx.lineTo(vertex.x,vertex.y);
+        }
+        ctx.stroke();
+        ctx.closePath();
+
+        let grd = await ctx.createLinearGradient(0,0,100,0);
+        grd.addColorStop(0,"red");
+        grd.addColorStop(1,"orange");
+        ctx.strokeStyle = grd;
+        ctx.shadowColor = 'red';
+        ctx.shadowBlur = 5;
+        this.t = 1;
+        this.animate(ctx);
     }
 
     handleCanvas2 = async (canvas) => {
@@ -118,7 +163,16 @@ export default class App extends Component {
 
     render() {
         return (
-            <Canvas ref={this.handleCanvas} />
+            <View>
+                <TouchableWithoutFeedback onPress={this.onCanvasPressed}>
+                    <Canvas ref={this.handleCanvas} onPress={this.onCanvasPressed}/>
+                </TouchableWithoutFeedback>
+                <Button
+                    onPress={this.onCanvasPressed}
+                    title="Re-Animate"
+                    color="#841584"
+                />
+            </View>
         )
     }
 }
