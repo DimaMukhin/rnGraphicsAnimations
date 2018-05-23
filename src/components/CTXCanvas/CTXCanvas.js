@@ -5,17 +5,17 @@ import Canvas from 'react-native-canvas';
 
 // define the path to plot
 var vertices=[];
-vertices.push({x:6,y:52});
-vertices.push({x:27,y:52});
-vertices.push({x:32,y:51});
-vertices.push({x:36,y:55});
-vertices.push({x:46,y:26});
-vertices.push({x:56,y:69});
-vertices.push({x:61,y:50});
-vertices.push({x:66,y:56});
-vertices.push({x:70,y:50});
-vertices.push({x:74,y:52});
-vertices.push({x:94,y:52});
+vertices.push({x:106,y:52});
+vertices.push({x:133,y:52});
+vertices.push({x:138,y:51});
+vertices.push({x:142,y:55});
+vertices.push({x:152,y:26});
+vertices.push({x:162,y:69});
+vertices.push({x:167,y:50});
+vertices.push({x:172,y:56});
+vertices.push({x:176,y:50});
+vertices.push({x:180,y:52});
+vertices.push({x:200,y:52});
 
 export default class App extends Component {
 
@@ -61,13 +61,13 @@ export default class App extends Component {
         ctx.stroke();
         ctx.closePath();
 
-        let grd = await ctx.createLinearGradient(0,0,100,0);
+        let grd = await ctx.createLinearGradient(100,0,200,0);
         grd.addColorStop(0,"red");
         grd.addColorStop(1,"orange");
         ctx.strokeStyle = grd;
         ctx.shadowColor = 'red';
         ctx.shadowBlur = 5;
-        this.animate(ctx);
+        // this.animate(ctx);
     }
 
     points = this.calcWaypoints(vertices);
@@ -116,12 +116,12 @@ export default class App extends Component {
         ctx.stroke();
         ctx.closePath();
 
-        let grd = await ctx.createLinearGradient(0,0,100,0);
+        let grd = await ctx.createLinearGradient(100,0,200,0);
         grd.addColorStop(0,"red");
         grd.addColorStop(1,"orange");
         ctx.strokeStyle = grd;
         ctx.shadowColor = 'red';
-        ctx.shadowBlur = 5;
+        ctx.shadowBlur = 16;
         this.t = 1;
         this.animate(ctx);
     }
