@@ -13,7 +13,7 @@
 	look at this: https://engineering.salesforce.com/experiments-with-high-performance-animation-in-react-native-80a0cb7052b0
 
 1. GCanvas (very promising supported by alibaba)
-2. iddan/react-native-canvas (uses Standard CanvasRenderingContext2D)
+2. iddan/react-native-canvas (uses Standard CanvasRenderingContext2D) (uses webview)
 3. React Native ART ( built-in library which can be used to draw pretty much any shape) (probably not good enough)
 4. React Native SVG (was branched from React Native ART)
 5. React Native NanoVG (OpenGL implementation for drawing shapes with a nice interface similar to React Native ART)
